@@ -1,3 +1,67 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:tailwindcss/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "simple-import-sort", "import", "unused-imports"],
+  "rules": {
+    // 短絡評価で0が描画されることを防ぐ（!!がすべてについてしまうので、迷っている）
+    // "react/jsx-no-leaked-render": [
+    //   "error",
+    //   {
+    //     "validStrategies": ["coerce"]
+    //   }
+    // ],
+
+    // typeインポート時にキーワードをインラインで指定
+    // https://typescript-eslint.io/rules/consistent-type-imports/
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "fixStyle": "inline-type-imports"
+      }
+    ],
+
+    // オブジェクト/インターフェースでの関数のプロパティを定義を矯正（❌func(): string, ⭕func: () => string）
+    // https://typescript-eslint.io/rules/method-signature-style/
+    "@typescript-eslint/method-signature-style": "error",
+
+    // booleanが要求される文脈では必ずboolean型の変数を使用
+    // https://typescript-eslint.io/rules/strict-boolean-expressions/
+    // "@typescript-eslint/strict-boolean-expressions": [
+    //   "warn",
+    //   {
+    //     "allowString": false,
+    //     "allowNumber": false,
+    //     "allowNullableObject": false
+    //   }
+    // ],
+
+    // + による連結を禁止
+    // https://eslint.org/docs/latest/rules/prefer-template
+    "prefer-template": "error",
+
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+
+    // 未使用のimportを削除
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  }
 }
